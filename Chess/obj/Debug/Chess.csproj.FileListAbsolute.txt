@@ -1,0 +1,1 @@
+D:\c#\Chess\Chess\bin\Debug\Chess.exe.config

@@ -1,1 +1,14 @@
 D:\c#\Chess\Chess\bin\Debug\Chess.exe.config
+D:\c#\Chess\Chess\bin\Debug\Chess.exe
+D:\c#\Chess\Chess\bin\Debug\Chess.pdb
+D:\c#\Chess\Chess\obj\Debug\Chess.csprojResolveAssemblyReference.cache
+D:\c#\Chess\Chess\obj\Debug\MainWindow.g.cs
+D:\c#\Chess\Chess\obj\Debug\App.g.cs
+D:\c#\Chess\Chess\obj\Debug\Chess_MarkupCompile.cache
+D:\c#\Chess\Chess\obj\Debug\Chess_MarkupCompile.lref
+D:\c#\Chess\Chess\obj\Debug\MainWindow.baml
+D:\c#\Chess\Chess\obj\Debug\Chess.g.resources
+D:\c#\Chess\Chess\obj\Debug\Chess.Properties.Resources.resources
+D:\c#\Chess\Chess\obj\Debug\Chess.csproj.GenerateResource.Cache
+D:\c#\Chess\Chess\obj\Debug\Chess.exe
+D:\c#\Chess\Chess\obj\Debug\Chess.pdb

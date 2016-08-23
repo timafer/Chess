@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chess"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1000" Width="1000">
-    <Grid Name="board">
+        Title="MainWindow" Height="1000" Width="1100">
+    <Grid Name="outer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Name="board" Grid.Column="0">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -27,5 +32,14 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+    </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Name="pos" Grid.Row="0" Background="Tan" Foreground="Black"/>
+            <Label Name="move" Grid.Row="1" Background="Black" Foreground="White"/>
+        </Grid>
     </Grid>
 </Window>

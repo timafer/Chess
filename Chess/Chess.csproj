@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="boardsquaretodispaltcon.cs" />
+    <Compile Include="controler\prossess.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,13 +65,24 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="controler\Board.cs" />
+    <Compile Include="model\BoardSquare.cs" />
+    <Compile Include="controler\Control.cs" />
+    <Compile Include="model\Fileinput.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pieces\DiagionalMovelong.cs" />
+    <Compile Include="model\Piece.cs" />
+    <Compile Include="model\Pices\Bishop.cs" />
+    <Compile Include="model\Pices\King.cs" />
+    <Compile Include="model\Pices\Knight.cs" />
+    <Compile Include="model\Pices\Pawn.cs" />
+    <Compile Include="model\Pices\Queen.cs" />
+    <Compile Include="model\Pices\Rook.cs" />
+    <Compile Include="model\xy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -95,6 +108,45 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\blackrook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\blackqueen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\blackpawn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\blacknight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\blackking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\blackbishhop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\whiterook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\whitequeen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\whitepawn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\whiteknight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\whiteking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\whitebishop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\Empty.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

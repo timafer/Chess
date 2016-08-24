@@ -38,7 +38,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Name="pos" Grid.Row="0" Background="Tan" Foreground="Black"/>
+            <Label Name="pos" Grid.Row="0" Background="Green" Foreground="Black"/>
             <Label Name="move" Grid.Row="1" Background="Black" Foreground="White"/>
         </Grid>
     </Grid>

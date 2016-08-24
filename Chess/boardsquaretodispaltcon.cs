@@ -23,7 +23,7 @@ namespace Chess
             }
             else if (p.name == "King")
             {
-                if (c)
+                if (!c)
                 {
                     return  new BitmapImage(new Uri("pics/whiteking.png", UriKind.RelativeOrAbsolute)); ;
                 }
@@ -34,7 +34,7 @@ namespace Chess
             }
             else if (p.name == "Pawn")
             {
-                if (c)
+                if (!c)
                 {
                     return new BitmapImage(new Uri("pics/whitepawn.png", UriKind.RelativeOrAbsolute));
                 }
@@ -45,7 +45,7 @@ namespace Chess
             }
             else if (p.name == "Queen")
             {
-                if (c)
+                if (!c)
                 {
                     return new BitmapImage(new Uri("pics/whitequeen.png", UriKind.RelativeOrAbsolute));
                 }
@@ -56,7 +56,7 @@ namespace Chess
             }
             else if (p.name == "Rook")
             {
-                if (c)
+                if (!c)
                 {
                     return new BitmapImage(new Uri("pics/whiterook.png", UriKind.RelativeOrAbsolute));
                 }
@@ -67,7 +67,7 @@ namespace Chess
             }
             else if (p.name == "Knight")
             {
-                if (c)
+                if (!c)
                 {
                     return new BitmapImage(new Uri("pics/whiteknight.png", UriKind.RelativeOrAbsolute));
                 }
@@ -78,7 +78,7 @@ namespace Chess
             }
             else if (p.name == "Bishop")
             {
-                if (c)
+                if (!c)
                 {
                     return new BitmapImage(new Uri("pics/whitebishop.png", UriKind.RelativeOrAbsolute));
                 }

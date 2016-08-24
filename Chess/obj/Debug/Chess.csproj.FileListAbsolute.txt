@@ -12,3 +12,5 @@ D:\c#\Chess\Chess\obj\Debug\Chess.Properties.Resources.resources
 D:\c#\Chess\Chess\obj\Debug\Chess.csproj.GenerateResource.Cache
 D:\c#\Chess\Chess\obj\Debug\Chess.exe
 D:\c#\Chess\Chess\obj\Debug\Chess.pdb
+D:\c#\Chess\Chess\obj\Debug\PawnP.g.cs
+D:\c#\Chess\Chess\obj\Debug\PawnP.baml

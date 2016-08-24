@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Collections;
 
 namespace Chessinconsolebecausewhy.Model
 {
     class Board : INotifyPropertyChanged
     {
-        public bool iswhiteturn=false;
+        public bool iswhiteturn=true;
         public BoardSquare[,] _board = new BoardSquare[8, 8];
         private bool whitecheck=false;
         private bool blackcheck=false;
@@ -441,7 +442,7 @@ namespace Chessinconsolebecausewhy.Model
                         if (board[x1, y1].piece.name == "Knight")
                         { 
                             if (x1 + 1 > 7|| y1 + 2 > 7) { }
-                            else if (checkpath(x1, y1, x1 + 1, y1+2))
+                            else 
                             {
                                 if (board[x1 + 1, y1+2].piece != null)
                                 {
@@ -473,7 +474,7 @@ namespace Chessinconsolebecausewhy.Model
                                 }
                             }
                             if (x1 + 1 > 7 || y1 - 2 < 0) { }
-                            else if (checkpath(x1, y1, x1 + 1, y1 -2))
+                            else 
                             {
                                 if (board[x1 + 1, y1 - 2].piece != null)
                                 {
@@ -505,7 +506,7 @@ namespace Chessinconsolebecausewhy.Model
                                 }
                             }
                             if (x1 - 1 < 0 || y1 + 2 > 7) { }
-                            else if (checkpath(x1, y1, x1 - 1, y1 + 2))
+                            else 
                             {
                                 if (board[x1 - 1, y1 + 2].piece != null)
                                 {
@@ -536,9 +537,8 @@ namespace Chessinconsolebecausewhy.Model
                                     board[x1, y1].piece.moves.Add(new Chess.model.xy(x1 - 1, y1 + 2));
                                 }
                             }
-                            if (x1 - 1 <0 || y1 - 2 <0) { }
-                            else if (checkpath(x1, y1, x1 - 1, y1 - 2))
-                            {
+                            if (x1 - 1 <= 0 || y1 - 2 < 0) { }
+                            else {
                                 if (board[x1 - 1, y1 - 2].piece != null)
                                 {
                                     if (board[x1 - 1, y1 - 2].iswhite != board[x1, y1].iswhite)
@@ -549,7 +549,7 @@ namespace Chessinconsolebecausewhy.Model
                                         }
                                         else
                                         {
-                                            board[x1 - 1, y1 -2].canbehitbyblack = true;
+                                            board[x1 - 1, y1 - 2].canbehitbyblack = true;
                                         }
                                         check(x1, y1, x1 - 1, y1 - 2);
                                         board[x1, y1].piece.moves.Add(new Chess.model.xy(x1 - 1, y1 - 2));
@@ -567,9 +567,10 @@ namespace Chessinconsolebecausewhy.Model
                                     }
                                     board[x1, y1].piece.moves.Add(new Chess.model.xy(x1 - 1, y1 - 2));
                                 }
+                            
                             }
                             if (x1 + 2 > 7 || y1 + 1 > 7) { }
-                            else if (checkpath(x1, y1, x1 + 2, y1 + 1))
+                            else 
                             {
                                 if (board[x1 + 2, y1 + 1].piece != null)
                                 {
@@ -601,7 +602,7 @@ namespace Chessinconsolebecausewhy.Model
                                 }
                             }
                             if (x1 + 2 > 7 || y1 - 1 < 0) { }
-                            else if (checkpath(x1, y1, x1 + 2, y1 - 1))
+                            else 
                             {
                                 if (board[x1 + 2, y1 - 1].piece != null)
                                 {
@@ -633,7 +634,7 @@ namespace Chessinconsolebecausewhy.Model
                                 }
                             }
                             if (x1 - 2 < 0 || y1 + 1 > 7) { }
-                            else if (checkpath(x1, y1, x1 - 2, y1 + 2))
+                            else 
                             {
                                 if (board[x1 - 2, y1 + 1].piece != null)
                                 {
@@ -665,7 +666,7 @@ namespace Chessinconsolebecausewhy.Model
                                 }
                             }
                             if (x1 - 2 < 0 || y1 - 1 < 0) { }
-                            else if (checkpath(x1, y1, x1 - 2, y1 - 1))
+                            else 
                             {
                                 if (board[x1 - 2, y1 - 1].piece != null)
                                 {
@@ -1112,46 +1113,49 @@ namespace Chessinconsolebecausewhy.Model
                     }
                 }
             }
-            for (int x=0;x<8;x++)
+        }
+        public void updatecheckmate()
+        {
+            for (int x = 0; x < 8; x++)
             {
-                for (int y = 0; y < 8; y ++)
+                for (int y = 0; y < 8; y++)
                 {
                     BoardSquare s = board[x, y];
                     if (s.piece != null)
                     {
                         if (s.piece.name == "King")
                         {
-                            if (s.iswhite&&whitecheck)
+                            if (s.iswhite && whitecheck)
                             {
                                 checkmate(x, y);
                             }
-                            else if(!s.iswhite&&blackcheck)
+                            else if (!s.iswhite && blackcheck)
                             {
                                 checkmate(x, y);
                             }
-                            
+
                         }
                     }
                 }
             }
 
-            if (whitecheckmate)
-            {
-               MessageBox.Show("White King:Checkmate \n Black Player Wins \n Game Exiting");
-                Application.Current.Shutdown();
-            }
-            else if (whitecheck)
-            {
-                MessageBox.Show("White King:Check");
-            }
             if (blackcheckmate)
             {
-                MessageBox.Show("Black King:Checkmate \n White Player Wins\n Game Exiting");
+                MessageBox.Show("White King:Checkmate \n Black Player Wins \n Game Exiting");
                 Application.Current.Shutdown();
             }
             else if (blackcheck)
             {
-                MessageBox.Show("Black king:Check"); 
+                MessageBox.Show("White King:Check");
+            }
+            if (whitecheckmate)
+            {
+                MessageBox.Show("Black King:Checkmate \n White Player Wins\n Game Exiting");
+                Application.Current.Shutdown();
+            }
+            else if (whitecheck)
+            {
+                MessageBox.Show("Black king:Check");
             }
         }
         public void check(int cx,int cy,int x,int y)
@@ -1470,12 +1474,73 @@ namespace Chessinconsolebecausewhy.Model
             }
             return success;
         }
+        public List<Chess.model.xy> checkblock(bool color)
+        {
+            List<Chess.model.xy> moves = new List<Chess.model.xy>();
+            for (int i=0;i<8;i++)
+            {
+                for (int o = 0; o < 8; o++)
+                {
+                    BoardSquare b = board[o, i];
+                    if ((b.blackchecker && !color) || (b.whitechecker && color))
+                    {
+                        if (b.piece !=null)
+                        {
+                            foreach(Chess.model.xy xy in b.piece.moves)
+                            {
+                                moves.Add(xy);
+                            }
+                        }
+                        moves.Add(new Chess.model.xy(o, i));
+                    }
+                }
+            }
+            return moves;
+        }
         public bool move(int x1,int y1,int x2,int y2)
         {
+
+            bool success = false;
+            if (whitecheck)
+            {
+                List<Chess.model.xy> moves = checkblock(true);
+                foreach (Chess.model.xy xy in moves)
+                {
+                    if (board[x1, y1].iswhite&&xy.x == x2 && xy.y == y2)
+                    {
+                        success = moverpt2(x1, y1, x2, y2);
+                    }
+
+                }
+            }
+            else if (blackcheck)
+            {
+                List<Chess.model.xy> moves = checkblock(false);
+                foreach(Chess.model.xy xy in moves)
+                {
+                    if (!board[x1,y1].iswhite&&xy.x==x2&&xy.y==y2)
+                    {
+                        success = moverpt2(x1, y1, x2, y2);
+                    }
+                    
+                }
+            }
+            else
+            {
+                success = moverpt2(x1, y1, x2, y2);
+            }
+            
+            return success;
+
+        }
+        public bool moverpt2(int x1, int y1, int x2, int y2)
+        {
+            Piece pstore = board[x1, y1].piece;
+            bool wstore = board[x1, y1].iswhite;
             bool success = false;
             if (board[x2, y2].piece == null && board[x1, y1].piece != null && board[x1, y1].piece.movement(x1, x2, y1, y2))
             {
-                if (checkpath(x1, y1, x2, y2)||board[x1,y1].piece is Knight)
+                if (checkpath(x1, y1, x2, y2) || board[x1, y1].piece is Knight)
                 {
                     if (iswhiteturn != board[x1, y1].iswhite)
                     {
@@ -1485,18 +1550,59 @@ namespace Chessinconsolebecausewhy.Model
                             {
                                 if (y2 == 0 || y2 == 8)
                                 {
-                                    board[x2, y2].piece = new Queen();
+                                    Chess.pics.PawnP p = new Chess.pics.PawnP();
+                                    p.ShowDialog();
+                                    int i = p.i;
+                                    switch (i)
+                                    {
+                                        case 0:
+                                            board[x2, y2].piece = new Rook();
+                                            break;
+                                        case 1:
+                                            board[x2, y2].piece = new Queen();
+                                            break;
+                                        case 2:
+                                            board[x2, y2].piece = new Bishop();
+                                            break;
+                                        case 3:
+                                            board[x2, y2].piece = new Knight();
+                                            break;
+                                    }
+                                    
                                     board[x2, y2].iswhite = board[x1, y1].iswhite;
                                     board[x2, y2].piece.hasmoved = true;
                                     board[x1, y1].piece = null;
                                     success = true;
                                     if (iswhiteturn)
                                     {
-                                        iswhiteturn = false;
+                                        updatecanbehit();
+                                        if (blackcheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = null;
+                                            board[x1, y1].iswhite =wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = false;
+                                        }
                                     }
                                     else
                                     {
-                                        iswhiteturn = true;
+                                        updatecanbehit();
+                                        if (whitecheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = null;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = true;
+                                        }
+
                                     }
                                 }
                                 else {
@@ -1507,11 +1613,34 @@ namespace Chessinconsolebecausewhy.Model
                                     success = true;
                                     if (iswhiteturn)
                                     {
-                                        iswhiteturn = false;
+                                        updatecanbehit();
+                                        if (blackcheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = null;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = false;
+                                        }
                                     }
                                     else
                                     {
-                                        iswhiteturn = true;
+                                        updatecanbehit();
+                                        if (whitecheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = null;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = true;
+                                        }
+
                                     }
                                 }
                             }
@@ -1526,11 +1655,33 @@ namespace Chessinconsolebecausewhy.Model
                                     success = true;
                                     if (iswhiteturn)
                                     {
-                                        iswhiteturn = false;
+                                        updatecanbehit();
+                                        if (blackcheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = null;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = false;
+                                        }
                                     }
                                     else
                                     {
-                                        iswhiteturn = true;
+                                        updatecanbehit();
+                                        if (whitecheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = null;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = true;
+                                        }
                                     }
                                 }
                                 else {
@@ -1541,11 +1692,34 @@ namespace Chessinconsolebecausewhy.Model
                                     success = true;
                                     if (iswhiteturn)
                                     {
-                                        iswhiteturn = false;
+                                        updatecanbehit();
+                                        if (blackcheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = null;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = false;
+                                        }
                                     }
                                     else
                                     {
-                                        iswhiteturn = true;
+                                        updatecanbehit();
+                                        if (whitecheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = null;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = true;
+                                        }
+
                                     }
                                 }
                             }
@@ -1558,11 +1732,33 @@ namespace Chessinconsolebecausewhy.Model
                             success = true;
                             if (iswhiteturn)
                             {
-                                iswhiteturn = false;
+                                updatecanbehit();
+                                if (blackcheck)
+                                {
+                                    success = false;
+                                    board[x2, y2].piece = null;
+                                    board[x1, y1].iswhite = wstore;
+                                    board[x1, y1].piece = pstore;
+                                }
+                                else
+                                {
+                                    iswhiteturn = false;
+                                }
                             }
                             else
                             {
-                                iswhiteturn = true;
+                                updatecanbehit();
+                                if (whitecheck)
+                                {
+                                    success = false;
+                                    board[x2, y2].piece = null;
+                                    board[x1, y1].iswhite = wstore;
+                                    board[x1, y1].piece = pstore;
+                                }
+                                else
+                                {
+                                    iswhiteturn = true;
+                                }
                             }
                         }
                     }
@@ -1573,18 +1769,57 @@ namespace Chessinconsolebecausewhy.Model
                 }
             }
             if (success)
-            {             
+            {
                 updatecanbehit();
+                updatecheckmate();
             }
             return success;
-
         }
         public bool capture(int x1, int y1, int x2, int y2)
         {
             bool success = false;
-            if (board[x2, y2].piece != null && board[x1, y1].piece != null && board[x1, y1].piece.movement(x1,x2,y1,y2))
+            if (whitecheck)
             {
-                if ((checkpath(x1, y1, x2, y2) || board[x1, y1].piece is Knight)&&(board[x1,y1].iswhite!=board[x2,y2].iswhite))
+                List<Chess.model.xy> moves = checkblock(true);
+                foreach (Chess.model.xy xy in moves)
+                {
+                    if (board[x1, y1].iswhite && xy.x == x2 && xy.y == y2)
+                    {
+                        success = capturept2(x1, y1, x2, y2);
+                    }
+
+                }
+            }
+            else if (blackcheck)
+            {
+                List<Chess.model.xy> moves = checkblock(false);
+                foreach (Chess.model.xy xy in moves)
+                {
+                    if (!board[x1, y1].iswhite && xy.x == x2 && xy.y == y2)
+                    {
+                        success = capturept2(x1, y1, x2, y2);
+                    }
+
+                }
+            }
+            else
+            {
+                success = capturept2(x1, y1, x2, y2);
+            }
+
+            return success;
+
+        }
+        public bool capturept2(int x1, int y1, int x2, int y2)
+        {
+            Piece pstore = board[x1, y1].piece;
+            bool wstore = board[x1, y1].iswhite;
+            Piece p2store = board[x2, y2].piece;
+            bool w2store = board[x2, y2].iswhite;
+            bool success = false;
+            if (board[x2, y2].piece != null && board[x1, y1].piece != null && board[x1, y1].piece.movement(x1, x2, y1, y2))
+            {
+                if ((checkpath(x1, y1, x2, y2) || board[x1, y1].piece is Knight) && (board[x1, y1].iswhite != board[x2, y2].iswhite))
                 {
                     if (iswhiteturn != board[x1, y1].iswhite)
                     {
@@ -1596,20 +1831,62 @@ namespace Chessinconsolebecausewhy.Model
                             else {
                                 if (y2 == 0 || y2 == 7)
                                 {
-                                    board[x2, y2].piece =new Queen();
+                                    Chess.pics.PawnP p = new Chess.pics.PawnP();
+                                    p.ShowDialog();
+                                    int i = p.i;
+                                    switch (i)
+                                    {
+                                        case 0:
+                                            board[x2, y2].piece = new Rook();
+                                            break;
+                                        case 1:
+                                            board[x2, y2].piece = new Queen();
+                                            break;
+                                        case 2:
+                                            board[x2, y2].piece = new Bishop();
+                                            break;
+                                        case 3:
+                                            board[x2, y2].piece = new Knight();
+                                            break;
+                                    }
                                     board[x2, y2].iswhite = board[x1, y1].iswhite;
                                     board[x2, y2].piece.hasmoved = true;
                                     board[x1, y1].piece = null;
                                     success = true;
                                     if (iswhiteturn)
                                     {
-                                        iswhiteturn = false;
+                                        updatecanbehit();
+                                        if (blackcheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = p2store;
+                                            board[x2, y2].iswhite = w2store;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = false;
+                                        }
                                     }
                                     else
                                     {
-                                        iswhiteturn = true;
+                                        updatecanbehit();
+                                        if (whitecheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = p2store;
+                                            board[x2, y2].iswhite = w2store;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = true;
+                                        }
                                     }
-                                }
+
+                                    }
                                 else {
                                     board[x2, y2].piece = board[x1, y1].piece;
                                     board[x2, y2].iswhite = board[x1, y1].iswhite;
@@ -1618,11 +1895,35 @@ namespace Chessinconsolebecausewhy.Model
                                     success = true;
                                     if (iswhiteturn)
                                     {
-                                        iswhiteturn = false;
+                                        updatecanbehit();
+                                        if (blackcheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = p2store;
+                                            board[x2, y2].iswhite = w2store;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = false;
+                                        }
                                     }
                                     else
                                     {
-                                        iswhiteturn = true;
+                                        updatecanbehit();
+                                        if (whitecheck)
+                                        {
+                                            success = false;
+                                            board[x2, y2].piece = p2store;
+                                            board[x2, y2].iswhite = w2store;
+                                            board[x1, y1].iswhite = wstore;
+                                            board[x1, y1].piece = pstore;
+                                        }
+                                        else
+                                        {
+                                            iswhiteturn = true;
+                                        }
                                     }
                                 }
                             }
@@ -1635,11 +1936,35 @@ namespace Chessinconsolebecausewhy.Model
                             success = true;
                             if (iswhiteturn)
                             {
-                                iswhiteturn = false;
+                                updatecanbehit();
+                                if (blackcheck)
+                                {
+                                    success = false;
+                                    board[x2, y2].piece = p2store;
+                                    board[x2, y2].iswhite = w2store;
+                                    board[x1, y1].iswhite = wstore;
+                                    board[x1, y1].piece = pstore;
+                                }
+                                else
+                                {
+                                    iswhiteturn = false;
+                                }
                             }
                             else
                             {
-                                iswhiteturn = true;
+                                updatecanbehit();
+                                if (whitecheck)
+                                {
+                                    success = false;
+                                    board[x2, y2].piece = p2store;
+                                    board[x2, y2].iswhite = w2store;
+                                    board[x1, y1].iswhite = wstore;
+                                    board[x1, y1].piece = pstore;
+                                }
+                                else
+                                {
+                                    iswhiteturn = true;
+                                }
                             }
                         }
 
@@ -1657,9 +1982,9 @@ namespace Chessinconsolebecausewhy.Model
             if (success)
             {
                 updatecanbehit();
+                updatecheckmate();
             }
             return success;
-
         }
         public bool castle(int x1, int y1, int x2, int y2,int x3,int y3,int x4,int y4)
         {
